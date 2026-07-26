@@ -168,7 +168,8 @@
     transition: transform 0.3s ease;
   }
   .member-card:hover{transform:translateY(-6px);}
-  .member-card img{aspect-ratio:3/4; object-fit:cover; width:100%;}
+  .member-photo-wrap{ position:relative; }
+  .member-photo-wrap img{aspect-ratio:3/4; object-fit:cover; width:100%; display:block;}
   .member-label{
     position:absolute; left:0; right:0; bottom:0;
     padding:1rem;
@@ -176,7 +177,7 @@
   }
   .member-label b{font-family:'Space Grotesk'; font-size:0.95rem;}
   .member-label small{display:block; color:var(--violet-bright); font-size:0.75rem; margin-top:2px;}
-  .member-socials{ display:flex; gap:0.6rem; padding:0.8rem 1rem; background:var(--ink); }
+  .member-socials{ display:flex; gap:0.6rem; padding:0.8rem 1rem; background:var(--ink); position:relative; z-index:1; }
   .member-socials a{ width:32px; height:32px; border-radius:50%; border:1px solid var(--gear-line);
                       display:flex; align-items:center; justify-content:center;
                       transition: background 0.2s ease, border-color 0.2s ease; }
@@ -339,8 +340,19 @@
   .modal-box .role{color:var(--violet-bright); font-size:0.85rem; font-family:'Space Grotesk'; margin:0.3rem 0 1rem;}
   .modal-box p{color:#c6b9e6; line-height:1.7; font-size:0.92rem;}
 
+  .nav-toggle{ display:none; background:none; border:none; cursor:pointer; padding:0.4rem; flex-direction:column; gap:5px; }
+  .nav-toggle span{ display:block; width:24px; height:2px; background:var(--paper); border-radius:2px; }
+
   @media (max-width: 860px){
-    nav ul{display:none;}
+    .nav-toggle{ display:flex; }
+    nav ul{
+      display:none; position:absolute; top:100%; left:0; right:0;
+      flex-direction:column; gap:0; background:rgba(8,6,13,0.97);
+      border-bottom:1px solid var(--gear-line); padding:0.5rem 0;
+    }
+    nav ul.open{ display:flex; }
+    nav ul li{ padding:0.9rem 5%; border-top:1px solid var(--gear-line); }
+    nav ul li:first-child{ border-top:none; }
     .about-grid, .about-grid.reverse, .meaning-wrap, .join-wrap, .connect-wrap{grid-template-columns:1fr;}
     .about-grid.reverse .about-photos{order:0;}
     .stats-row{grid-template-columns:1fr;}
@@ -366,7 +378,10 @@
       <circle cx="50" cy="50" r="9" fill="#b083ff"/>
     </svg>
   </div>
-  <ul>
+  <button class="nav-toggle" onclick="toggleNav()" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+  <ul id="nav-links">
     <li><a href="#top">Home</a></li>
     <li><a href="about.html" target="_blank" rel="noopener">About Us</a></li>
     <li><a href="team.html">Team</a></li>
@@ -474,7 +489,7 @@
   </div>
   <div class="team-grid" id="team-grid"></div>
   <div class="team-more">
-    <a href="#" class="btn btn-outline" onclick="alert('Full member directory coming soon.'); return false;">More Members</a>
+    <a href="team.html" class="btn btn-outline">More Members</a>
   </div>
 </section>
 
@@ -763,6 +778,12 @@
 </div>
 
 <script>
+  // Mobile hamburger menu
+  function toggleNav(){ document.getElementById('nav-links').classList.toggle('open'); }
+  document.querySelectorAll('#nav-links a').forEach(a=>{
+    a.addEventListener('click', ()=> document.getElementById('nav-links').classList.remove('open'));
+  });
+
   // ================================================================
   // ALL THE "REAL" CONTENT LIVES HERE. Edit the text/links below —
   // you do NOT need to touch the HTML above for team members, events,
@@ -834,8 +855,10 @@
     const card = document.createElement('div');
     card.className='member-card';
     card.onclick = ()=> showMemberModal(i);
-    card.innerHTML = `<img src="${m.img}" alt="${m.name}">
-      <div class="member-label"><b>${m.name}</b><small>${m.role}</small></div>
+    card.innerHTML = `<div class="member-photo-wrap">
+        <img src="${m.img}" alt="${m.name}">
+        <div class="member-label"><b>${m.name}</b><small>${m.role}</small></div>
+      </div>
       <div class="member-socials" onclick="event.stopPropagation()">
         <a href="${m.instagram}" target="_blank" rel="noopener" aria-label="Instagram">${igIcon}</a>
         <a href="${m.linkedin}" target="_blank" rel="noopener" aria-label="LinkedIn">${liIcon}</a>
