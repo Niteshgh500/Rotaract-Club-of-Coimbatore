@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Our Team — Rotaract Club of Coimbatore</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --black: #08060d; --ink: #0e0a18; --violet-deep: #241238; --violet-mid: #3d1f63;
+    --violet-accent: #8b5cf6; --violet-bright: #b083ff; --lilac: #d9c8ff; --paper: #f3edff;
+    --gear-line: rgba(176,131,255,0.25);
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{ background:var(--black); color:var(--paper); font-family:'Inter', sans-serif; overflow-x:hidden; }
+  h1,h2,h3{ font-family:'Fraunces', serif; font-weight:600; letter-spacing:-0.01em; }
+  .eyebrow{ font-family:'Space Grotesk', sans-serif; text-transform:uppercase; letter-spacing:0.28em; font-size:0.72rem; color:var(--violet-bright); }
+  a{color:inherit; text-decoration:none;}
+  img{max-width:100%; display:block;}
+  button{font-family:'Space Grotesk', sans-serif; cursor:pointer; border:none;}
+  body::before{
+    content:""; position:fixed; inset:0;
+    background: radial-gradient(circle at 15% 20%, rgba(139,92,246,0.16), transparent 40%),
+                radial-gradient(circle at 85% 75%, rgba(139,92,246,0.12), transparent 45%),
+                linear-gradient(180deg, #08060d 0%, #0e0a18 100%);
+    z-index:-2;
+  }
+  nav{ position:sticky; top:0; z-index:50; display:flex; align-items:center; justify-content:space-between;
+       padding:1.1rem 5%; background:rgba(8,6,13,0.72); backdrop-filter:blur(10px); border-bottom:1px solid var(--gear-line); }
+  .brand{display:flex; align-items:center; gap:0.6rem; cursor:pointer;}
+  .brand .gear{width:34px; height:34px; animation: spin 12s linear infinite;}
+  nav ul{list-style:none; display:flex; gap:1.8rem; font-size:0.85rem; font-family:'Space Grotesk';}
+  nav ul a:hover{color:var(--violet-bright);}
+  @keyframes spin{ to{ transform: rotate(360deg);} }
+
+  section{padding: 5rem 5%; position:relative;}
+  .section-head{max-width:640px; margin-bottom:2rem;}
+  .section-head h2{font-size:clamp(1.9rem,4vw,2.7rem); margin-top:0.6rem;}
+  .section-head p{color:#b8aad4; margin-top:0.8rem; line-height:1.6;}
+
+  .page-header{ padding: 4rem 5% 1rem; }
+  .page-header h1{ font-size:clamp(2.2rem,5vw,3.4rem); }
+  .page-header p{ color:#b8aad4; margin-top:0.8rem; max-width:560px; }
+
+  .btn{ display:inline-flex; align-items:center; gap:0.5rem; padding:0.9rem 1.7rem; border-radius:999px;
+        font-size:0.85rem; font-weight:600; letter-spacing:0.02em; transition: transform 0.25s ease; }
+  .btn-solid{background:linear-gradient(135deg, var(--violet-accent), var(--violet-mid)); color:#fff;}
+  .btn-solid:hover{transform:translateY(-2px);}
+
+  /* ===== BOARD MEMBER OF THE MONTH — spotlight ===== */
+  .spotlight{
+    display:grid; grid-template-columns:220px 1fr; gap:2.4rem; align-items:center;
+    background: radial-gradient(circle at 20% 30%, rgba(139,92,246,0.18), transparent 60%);
+    border:1px solid var(--gear-line); border-radius:26px; padding:2.4rem;
+  }
+  .spotlight img{ border-radius:20px; aspect-ratio:1/1; object-fit:cover; border:1px solid var(--gear-line); }
+  .spotlight .month-tag{ display:inline-block; margin-bottom:0.8rem; }
+  .spotlight h2{ font-size:clamp(1.6rem,3.4vw,2.2rem); }
+  .spotlight .role{ color:var(--violet-bright); font-family:'Space Grotesk'; font-size:0.9rem; margin:0.3rem 0 0.9rem; }
+  .spotlight p{ color:#c6b9e6; line-height:1.7; font-size:0.95rem; }
+
+  /* ===== QUOTES ===== */
+  .quote-band{ text-align:center; padding:2.6rem 5%; }
+  .quote-band p{ font-family:'Fraunces', serif; font-style:italic; font-size:clamp(1.15rem,2.6vw,1.55rem);
+                 color:var(--violet-bright); max-width:720px; margin:0 auto; }
+
+  /* ===== MEMBER GRID / CARD ===== */
+  .member-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:1.3rem; }
+  .member-card{ border-radius:16px; overflow:hidden; border:1px solid var(--gear-line);
+                background:rgba(36,18,56,0.3); transition: transform 0.25s ease, border-color 0.25s ease; }
+  .member-card:hover{ transform:translateY(-6px); border-color:var(--violet-bright); }
+  .member-photo{ aspect-ratio:3/4; object-fit:cover; width:100%; cursor:pointer; }
+  .member-info{ padding:0.9rem 1rem 0.4rem; cursor:pointer; }
+  .member-info b{ font-family:'Space Grotesk'; font-size:0.9rem; display:block; }
+  .member-info small{ color:var(--violet-bright); font-size:0.72rem; }
+  .member-socials{ display:flex; gap:0.6rem; padding:0.7rem 1rem 1rem; }
+  .member-socials a{ width:30px; height:30px; border-radius:50%; border:1px solid var(--gear-line);
+                     display:flex; align-items:center; justify-content:center;
+                     transition: background 0.2s ease, border-color 0.2s ease; }
+  .member-socials a:hover{ background:rgba(139,92,246,0.15); border-color:var(--violet-bright); }
+  .member-socials svg{ width:14px; height:14px; fill:var(--lilac); }
+
+  /* portfolio subgroups within Board Members */
+  .portfolio-block{ margin-bottom:2.6rem; }
+  .portfolio-block:last-child{ margin-bottom:0; }
+  .portfolio-title{ font-family:'Space Grotesk'; font-size:1rem; color:var(--lilac);
+                     border-left:3px solid var(--violet-bright); padding-left:0.7rem; margin-bottom:1.1rem; }
+
+  hr.divider{ border:none; border-top:1px solid var(--gear-line); margin: 0 5%; }
+
+  /* ===== MODAL ===== */
+  .modal-overlay{ position:fixed; inset:0; background:rgba(8,6,13,0.82); backdrop-filter:blur(4px);
+                  display:none; align-items:center; justify-content:center; z-index:200; padding:2rem; }
+  .modal-overlay.active{ display:flex; }
+  .modal-box{ background:linear-gradient(160deg, var(--violet-deep), var(--ink)); border:1px solid var(--gear-line);
+              border-radius:22px; max-width:440px; width:100%; padding:2.2rem; position:relative;
+              max-height:85vh; overflow-y:auto; text-align:center; }
+  .modal-close{ position:absolute; top:1.1rem; right:1.1rem; width:34px; height:34px; border-radius:50%;
+                background:rgba(139,92,246,0.15); color:var(--violet-bright); display:flex; align-items:center;
+                justify-content:center; font-size:1.1rem; cursor:pointer; }
+  .modal-box h3{ font-size:1.25rem; }
+  .modal-box .meta{ color:var(--violet-bright); font-size:0.85rem; font-family:'Space Grotesk'; margin-top:0.3rem; }
+  .modal-photo-center{ width:130px; height:130px; border-radius:50%; object-fit:cover; margin:1.3rem auto;
+                        border:2px solid var(--violet-bright); }
+  .modal-box p{ color:#c6b9e6; line-height:1.7; font-size:0.9rem; text-align:left; }
+  .modal-socials{ display:flex; gap:0.8rem; justify-content:center; margin-top:1.3rem; }
+  .modal-socials a{ width:38px; height:38px; border-radius:50%; border:1px solid var(--gear-line);
+                     display:flex; align-items:center; justify-content:center;
+                     transition: background 0.2s ease, border-color 0.2s ease; }
+  .modal-socials a:hover{ background:rgba(139,92,246,0.15); border-color:var(--violet-bright); }
+  .modal-socials svg{ width:17px; height:17px; fill:var(--lilac); }
+
+  /* footer */
+  footer{ padding: 4rem 5% 2.4rem; border-top:1px solid var(--gear-line); background:var(--ink); }
+  .footer-box{ border:1px solid var(--gear-line); border-radius:20px; padding:2.4rem;
+               display:grid; grid-template-columns:1.2fr 1fr; gap:2rem; align-items:center; margin-bottom:2.4rem; }
+  .footer-box h3{ color:var(--violet-bright); font-size:1.3rem; }
+  .footer-box .contact-line{ margin-top:0.5rem; color:#c6b9e6; font-size:0.92rem; }
+  .social-icons{ display:flex; gap:1rem; justify-content:flex-end; }
+  .social-icons a{ width:46px; height:46px; border-radius:50%; border:1px solid var(--gear-line);
+                    display:flex; align-items:center; justify-content:center;
+                    transition: transform 0.25s ease, background 0.25s ease, border-color 0.25s ease; }
+  .social-icons a:hover{ transform:translateY(-3px); background:rgba(139,92,246,0.15); border-color:var(--violet-bright); }
+  .social-icons svg{ width:20px; height:20px; fill:var(--lilac); }
+  .foot-bottom{ text-align:center; color:#6f5f92; font-size:0.8rem; }
+
+  @media (max-width: 860px){
+    nav ul{ display:none; }
+    .spotlight{ grid-template-columns:1fr; text-align:center; }
+    .spotlight img{ margin:0 auto; width:160px; }
+    .footer-box{ grid-template-columns:1fr; }
+    .social-icons{ justify-content:flex-start; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="brand" onclick="showClubStatus()" title="When we started & how it's going">
+    <svg class="gear" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M50 20 L55 8 L45 8 Z M50 80 L55 92 L45 92 Z M80 50 L92 55 L92 45 Z M20 50 L8 55 L8 45 Z M71 29 L82 20 L74 32 Z M29 71 L18 80 L26 68 Z M71 71 L82 80 L74 68 Z M29 29 L18 20 L26 32 Z" fill="#b083ff"/>
+      <circle cx="50" cy="50" r="26" stroke="#b083ff" stroke-width="6"/>
+      <circle cx="50" cy="50" r="9" fill="#b083ff"/>
+    </svg>
+  </div>
+  <ul>
+    <li><a href="index.html">Home</a></li>
+    <li><a href="about.html">About Us</a></li>
+    <li><a href="team.html">Team</a></li>
+    <li><a href="index.html#join">Join</a></li>
+    <li><a href="events.html">Events</a></li>
+    <li><a href="index.html#connect">Connect</a></li>
+  </ul>
+</nav>
+
+<div class="page-header">
+  <span class="eyebrow">The people behind the projects</span>
+  <h1>Our Team</h1>
+  <p>From this month's standout to every committee member — tap any poster to meet them.</p>
+</div>
+
+<!-- ================================================================
+     BOARD MEMBER OF THE MONTH (spotlight)
+     👉 PIC + CONTENT: search for "const spotlight = { ... }" in the
+        <script> below to change the photo, name, role, month, and blurb.
+================================================================= -->
+<section id="spotlight-section">
+  <div class="spotlight" id="spotlight-box"></div>
+</section>
+
+<hr class="divider">
+
+<!-- ================================================================
+     CORE TEAM
+     👉 CONTENT: quote text below.
+     👉 PIC + CONTENT: search for "const coreTeam = [ ... ]" in the
+        <script> to edit each of the 5 posters, Instagram/LinkedIn
+        links, and bios.
+================================================================= -->
+<section id="core-team">
+  <div class="section-head">
+    <span class="eyebrow">Leading from the front</span>
+    <h2>Core Team</h2>
+  </div>
+  <div class="quote-band" style="padding-top:0; padding-bottom:2.2rem;">
+    <!-- CONTENT: core team quote -->
+    <p>"A team is not a group of people who work together. It's a group of people who trust each other."</p>
+  </div>
+  <div class="member-grid" id="core-team-grid"></div>
+</section>
+
+<hr class="divider">
+
+<!-- ================================================================
+     BOARD MEMBERS (30, grouped by portfolio/committee)
+     👉 CONTENT: quote text below.
+     👉 PIC + CONTENT: search for "const boardMembers = { ... }" in
+        the <script> — it's grouped by portfolio name, each holding a
+        list of members. Add/remove a portfolio or a member freely.
+================================================================= -->
+<section id="board-members">
+  <div class="section-head">
+    <span class="eyebrow">Making it happen</span>
+    <h2>Board Members</h2>
+  </div>
+  <div class="quote-band" style="padding-top:0; padding-bottom:2.2rem;">
+    <!-- CONTENT: board members quote -->
+    <p>"Alone we can do so little; together we can do so much."</p>
+  </div>
+  <div id="board-members-groups"></div>
+</section>
+
+<hr class="divider">
+
+<!-- ================================================================
+     STAFF COORDINATORS
+     👉 CONTENT: quote text below.
+     👉 PIC + CONTENT: search for "const staffCoordinators = [ ... ]"
+        in the <script> to edit the 2 posters.
+================================================================= -->
+<section id="staff-coordinators">
+  <div class="section-head">
+    <span class="eyebrow">Our Rotary guides</span>
+    <h2>Staff Coordinators</h2>
+  </div>
+  <div class="quote-band" style="padding-top:0; padding-bottom:2.2rem;">
+    <!-- CONTENT: staff coordinators quote -->
+    <p>"Behind every strong club is a mentor who believed in it first."</p>
+  </div>
+  <div class="member-grid" id="staff-grid"></div>
+</section>
+
+<!-- ================================================================
+     FOOTER
+================================================================= -->
+<footer>
+  <div class="footer-box">
+    <div>
+      <h3>Rotaract Club of Coimbatore</h3>
+      <div class="contact-line">✉ hello@rotaractcoimbatore.org</div>
+      <div class="contact-line">📞 +91 98765 43210</div>
+    </div>
+    <div class="social-icons">
+      <a href="https://instagram.com/" target="_blank" rel="noopener" aria-label="Instagram">
+        <svg viewBox="0 0 24 24"><path d="M12 2.2c3.2 0 3.6 0 4.9.07 1.2.06 2 .25 2.5.42a5 5 0 011.8 1.16 5 5 0 011.16 1.8c.17.5.36 1.3.42 2.5.06 1.3.07 1.7.07 4.9s0 3.6-.07 4.9c-.06 1.2-.25 2-.42 2.5a5 5 0 01-1.16 1.8 5 5 0 01-1.8 1.16c-.5.17-1.3.36-2.5.42-1.3.06-1.7.07-4.9.07s-3.6 0-4.9-.07c-1.2-.06-2-.25-2.5-.42a5 5 0 01-1.8-1.16 5 5 0 01-1.16-1.8c-.17-.5-.36-1.3-.42-2.5C2.2 15.6 2.2 15.2 2.2 12s0-3.6.07-4.9c.06-1.2.25-2 .42-2.5a5 5 0 011.16-1.8 5 5 0 011.8-1.16c.5-.17 1.3-.36 2.5-.42C8.4 2.2 8.8 2.2 12 2.2zm0 3.05a6.75 6.75 0 100 13.5 6.75 6.75 0 000-13.5zm0 11.13a4.38 4.38 0 110-8.76 4.38 4.38 0 010 8.76zm7-11.4a1.58 1.58 0 11-3.15 0 1.58 1.58 0 013.15 0z"/></svg>
+      </a>
+      <a href="https://linkedin.com/" target="_blank" rel="noopener" aria-label="LinkedIn">
+        <svg viewBox="0 0 24 24"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.03-1.85-3.03-1.86 0-2.15 1.45-2.15 2.94v5.66H9.35V9h3.41v1.56h.05c.47-.9 1.63-1.85 3.36-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.06 2.06 0 11.01-4.12 2.06 2.06 0 010 4.12zM7.12 20.45H3.56V9h3.56v11.45z"/></svg>
+      </a>
+      <a href="https://facebook.com/" target="_blank" rel="noopener" aria-label="Facebook">
+        <svg viewBox="0 0 24 24"><path d="M13.5 21v-7.9h2.66l.4-3.1H13.5V8.02c0-.9.25-1.5 1.54-1.5h1.64V3.76A22 22 0 0014.7 3.6c-2.3 0-3.87 1.4-3.87 3.98v2.42H8.16v3.1h2.67V21h2.67z"/></svg>
+      </a>
+    </div>
+  </div>
+  <p class="foot-bottom">© 2026 Rotaract Club of Coimbatore. Service Above Self.</p>
+</footer>
+
+<!-- Member detail pop-up: name/role at top, photo in the middle, bio + socials below -->
+<div class="modal-overlay" id="member-modal">
+  <div class="modal-box" id="member-modal-content"></div>
+</div>
+
+<div class="modal-overlay" id="club-status-modal">
+  <div class="modal-box" style="text-align:left;">
+    <div class="modal-close" onclick="document.getElementById('club-status-modal').classList.remove('active')">✕</div>
+    <h3>Our Story So Far</h3>
+    <div class="meta" id="club-status-meta"></div>
+    <p id="club-status-text"></p>
+  </div>
+</div>
+
+<script>
+  const startYear = 1975;
+  function showClubStatus(){
+    const yrs = new Date().getFullYear() - startYear;
+    document.getElementById('club-status-meta').textContent = 'Chartered in ' + startYear + ' · ' + yrs + ' years active';
+    document.getElementById('club-status-text').textContent =
+      'What began as a small group of volunteers has grown into an 85-member club that has completed 140+ projects across health, education, and the environment. We\'re currently running our ' + yrs + 'th year of active service, with new projects added every term.';
+    document.getElementById('club-status-modal').classList.add('active');
+  }
+  document.getElementById('club-status-modal').addEventListener('click', e=>{
+    if(e.target.id === 'club-status-modal') e.target.classList.remove('active');
+  });
+
+  // ================================================================
+  // Small reusable social icon markup
+  // ================================================================
+  const igIcon = `<svg viewBox="0 0 24 24"><path d="M12 2.2c3.2 0 3.6 0 4.9.07 1.2.06 2 .25 2.5.42a5 5 0 011.8 1.16 5 5 0 011.16 1.8c.17.5.36 1.3.42 2.5.06 1.3.07 1.7.07 4.9s0 3.6-.07 4.9c-.06 1.2-.25 2-.42 2.5a5 5 0 01-1.16 1.8 5 5 0 01-1.8 1.16c-.5.17-1.3.36-2.5.42-1.3.06-1.7.07-4.9.07s-3.6 0-4.9-.07c-1.2-.06-2-.25-2.5-.42a5 5 0 01-1.8-1.16 5 5 0 01-1.16-1.8c-.17-.5-.36-1.3-.42-2.5C2.2 15.6 2.2 15.2 2.2 12s0-3.6.07-4.9c.06-1.2.25-2 .42-2.5a5 5 0 011.16-1.8 5 5 0 011.8-1.16c.5-.17 1.3-.36 2.5-.42C8.4 2.2 8.8 2.2 12 2.2zm0 3.05a6.75 6.75 0 100 13.5 6.75 6.75 0 000-13.5zm0 11.13a4.38 4.38 0 110-8.76 4.38 4.38 0 010 8.76zm7-11.4a1.58 1.58 0 11-3.15 0 1.58 1.58 0 013.15 0z"/></svg>`;
+  const liIcon = `<svg viewBox="0 0 24 24"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.03-1.85-3.03-1.86 0-2.15 1.45-2.15 2.94v5.66H9.35V9h3.41v1.56h.05c.47-.9 1.63-1.85 3.36-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.06 2.06 0 11.01-4.12 2.06 2.06 0 010 4.12zM7.12 20.45H3.56V9h3.56v11.45z"/></svg>`;
+
+  // 👉 A small rotating pool of headshot-style photos used across the
+  //    board members grid, so you don't need 30 unique image links.
+  //    Replace any of these, or add more, freely.
+  const photoPool = [
+    "https://images.unsplash.com/photo-1633332755192-727a05c4013d?w=400&q=60",
+    "https://images.unsplash.com/photo-1580489944761-15a19d654956?w=400&q=60",
+    "https://images.unsplash.com/photo-1568602471122-7832951cc4c5?w=400&q=60",
+    "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=400&q=60",
+    "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&q=60",
+    "https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=400&q=60",
+    "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=400&q=60",
+    "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=400&q=60",
+    "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=400&q=60",
+    "https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?w=400&q=60"
+  ];
+
+  // ================================================================
+  // 👉 BOARD MEMBER OF THE MONTH — one photo, one story.
+  // ================================================================
+  const spotlight = {
+    name:"Ishita Rao", role:"PR & Media Lead", month:"July 2026",
+    img:"https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=400&q=60",
+    blurb:"For single-handedly documenting and promoting every project this quarter — and for the district conference reel that crossed 20,000 views. This month's spotlight goes to Ishita, for making sure our work doesn't go unnoticed."
+  };
+  document.getElementById('spotlight-box').innerHTML = `
+    <img src="${spotlight.img}" alt="${spotlight.name}">
+    <div>
+      <span class="eyebrow month-tag">Board Member of the Month · ${spotlight.month}</span>
+      <h2>${spotlight.name}</h2>
+      <div class="role">${spotlight.role}</div>
+      <p>${spotlight.blurb}</p>
+    </div>`;
+
+  // ================================================================
+  // 👉 CORE TEAM — 5 posters. instagram/linkedin = real profile URLs.
+  // ================================================================
+  const coreTeam = [
+    {name:"Aarav Menon", role:"President", instagram:"https://instagram.com/", linkedin:"https://linkedin.com/",
+     img:photoPool[0], bio:"Final-year engineering student. Joined as a first-year and never left — now runs board meetings the way he once sat quietly in the back of them."},
+    {name:"Diya Sharma", role:"Secretary", instagram:"https://instagram.com/", linkedin:"https://linkedin.com/",
+     img:photoPool[1], bio:"Keeps every project on paper and on schedule. Says the minutes book is the club's real memory."},
+    {name:"Kabir Nair", role:"Treasurer", instagram:"https://instagram.com/", linkedin:"https://linkedin.com/",
+     img:photoPool[2], bio:"Turned a chaotic project budget into a spreadsheet the whole board actually understands."},
+    {name:"Meera Iyer", role:"Vice President", instagram:"https://instagram.com/", linkedin:"https://linkedin.com/",
+     img:photoPool[3], bio:"Steps in wherever the club needs her most — this term, that's meant leading three committees at once."},
+    {name:"Rohan Das", role:"Joint Secretary", instagram:"https://instagram.com/", linkedin:"https://linkedin.com/",
+     img:photoPool[4], bio:"Runs induction week — the first friendly face most new members meet."}
+  ];
+
+  // ================================================================
+  // 👉 BOARD MEMBERS — 30 total, grouped by portfolio/committee.
+  //    Add a new portfolio by adding a new key; add a member by
+  //    adding a {name, role} to that portfolio's list.
+  // ================================================================
+  const boardMembers = {
+    "Community Service Committee": [
+      {name:"Ananya Pillai", role:"Committee Chair"},
+      {name:"Vikram Rao", role:"Committee Member"},
+      {name:"Sneha Kulkarni", role:"Committee Member"},
+      {name:"Arjun Bose", role:"Committee Member"},
+      {name:"Priya Varma", role:"Committee Member"}
+    ],
+    "Professional Development Committee": [
+      {name:"Nikhil Chawla", role:"Committee Chair"},
+      {name:"Tanvi Joshi", role:"Committee Member"},
+      {name:"Rahul Mehta", role:"Committee Member"},
+      {name:"Kavya Reddy", role:"Committee Member"},
+      {name:"Aditya Kapoor", role:"Committee Member"}
+    ],
+    "International Service Committee": [
+      {name:"Ritika Bhatt", role:"Committee Chair"},
+      {name:"Sameer Khan", role:"Committee Member"},
+      {name:"Pooja Desai", role:"Committee Member"},
+      {name:"Varun Malhotra", role:"Committee Member"},
+      {name:"Neha Gupta", role:"Committee Member"}
+    ],
+    "Membership Committee": [
+      {name:"Aryan Verma", role:"Committee Chair"},
+      {name:"Simran Kaur", role:"Committee Member"},
+      {name:"Karthik Subramaniam", role:"Committee Member"},
+      {name:"Ishaan Bansal", role:"Committee Member"},
+      {name:"Divya Nambiar", role:"Committee Member"}
+    ],
+    "Public Relations & Media Committee": [
+      {name:"Yashvi Shah", role:"Committee Chair"},
+      {name:"Manish Tiwari", role:"Committee Member"},
+      {name:"Radhika Iyer", role:"Committee Member"},
+      {name:"Devansh Pandey", role:"Committee Member"},
+      {name:"Sanya Kapoor", role:"Committee Member"}
+    ],
+    "Fundraising & Sponsorship Committee": [
+      {name:"Harsh Vardhan", role:"Committee Chair"},
+      {name:"Aisha Siddiqui", role:"Committee Member"},
+      {name:"Nitin Choudhary", role:"Committee Member"},
+      {name:"Lavanya Menon", role:"Committee Member"},
+      {name:"Om Prakash", role:"Committee Member"}
+    ]
+  };
+
+  // 👉 STAFF COORDINATORS — 2 posters (sponsoring Rotary club advisors).
+  const staffCoordinators = [
+    {name:"Rtn. Suresh Kumar", role:"Staff Coordinator", instagram:"https://instagram.com/", linkedin:"https://linkedin.com/",
+     img:photoPool[7], bio:"Our main point of contact with the sponsoring Rotary club. Has guided three board transitions and counting."},
+    {name:"Rtn. Lakshmi Narayan", role:"Assistant Staff Coordinator", instagram:"https://instagram.com/", linkedin:"https://linkedin.com/",
+     img:photoPool[8], bio:"Steps in on project days, mentoring committee chairs through their first big events."}
+  ];
+
+  // ================================================================
+  // RENDER HELPERS
+  // ================================================================
+  function memberCardHTML(m, key){
+    return `
+      <img class="member-photo" src="${m.img}" alt="${m.name}" onclick="showMemberModal('${key}')">
+      <div class="member-info" onclick="showMemberModal('${key}')"><b>${m.name}</b><small>${m.role}</small></div>
+      <div class="member-socials">
+        <a href="${m.instagram}" target="_blank" rel="noopener" aria-label="Instagram">${igIcon}</a>
+        <a href="${m.linkedin}" target="_blank" rel="noopener" aria-label="LinkedIn">${liIcon}</a>
+      </div>`;
+  }
+
+  // registry so any card can be looked up by a simple string key when a modal opens
+  const memberRegistry = {};
+
+  const coreGrid = document.getElementById('core-team-grid');
+  coreTeam.forEach((m,i)=>{
+    const key = 'core-' + i;
+    memberRegistry[key] = m;
+    const card = document.createElement('div');
+    card.className = 'member-card';
+    card.innerHTML = memberCardHTML(m, key);
+    coreGrid.appendChild(card);
+  });
+
+  const boardGroupsWrap = document.getElementById('board-members-groups');
+  Object.keys(boardMembers).forEach((portfolio, pi)=>{
+    const block = document.createElement('div');
+    block.className = 'portfolio-block';
+    const grid = document.createElement('div');
+    grid.className = 'member-grid';
+    boardMembers[portfolio].forEach((m,i)=>{
+      const key = 'board-' + pi + '-' + i;
+      // give each board member a photo from the rotating pool + a short generic bio
+      const withPhoto = Object.assign({
+        img: photoPool[(pi + i) % photoPool.length],
+        instagram: "https://instagram.com/",
+        linkedin: "https://linkedin.com/",
+        bio: `Member of the ${portfolio}, helping plan and run our projects in this area all year round.`
+      }, m);
+      memberRegistry[key] = withPhoto;
+      const card = document.createElement('div');
+      card.className = 'member-card';
+      card.innerHTML = memberCardHTML(withPhoto, key);
+      grid.appendChild(card);
+    });
+    block.innerHTML = `<div class="portfolio-title">${portfolio}</div>`;
+    block.appendChild(grid);
+    boardGroupsWrap.appendChild(block);
+  });
+
+  const staffGrid = document.getElementById('staff-grid');
+  staffCoordinators.forEach((m,i)=>{
+    const key = 'staff-' + i;
+    memberRegistry[key] = m;
+    const card = document.createElement('div');
+    card.className = 'member-card';
+    card.innerHTML = memberCardHTML(m, key);
+    staffGrid.appendChild(card);
+  });
+
+  // ================================================================
+  // MODAL — name/role at top, photo in the middle, bio + socials below
+  // ================================================================
+  function showMemberModal(key){
+    const m = memberRegistry[key];
+    document.getElementById('member-modal-content').innerHTML = `
+      <div class="modal-close" onclick="closeMemberModal()">✕</div>
+      <h3>${m.name}</h3>
+      <div class="meta">${m.role}</div>
+      <img class="modal-photo-center" src="${m.img}" alt="${m.name}">
+      <p>${m.bio}</p>
+      <div class="modal-socials">
+        <a href="${m.instagram}" target="_blank" rel="noopener" aria-label="Instagram">${igIcon}</a>
+        <a href="${m.linkedin}" target="_blank" rel="noopener" aria-label="LinkedIn">${liIcon}</a>
+      </div>`;
+    document.getElementById('member-modal').classList.add('active');
+  }
+  function closeMemberModal(){ document.getElementById('member-modal').classList.remove('active'); }
+  document.getElementById('member-modal').addEventListener('click', e=>{
+    if(e.target.id === 'member-modal') closeMemberModal();
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Events &amp; Bulletins — Rotaract Club of Coimbatore</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --black: #08060d; --ink: #0e0a18; --violet-deep: #241238; --violet-mid: #3d1f63;
+    --violet-accent: #8b5cf6; --violet-bright: #b083ff; --lilac: #d9c8ff; --paper: #f3edff;
+    --gear-line: rgba(176,131,255,0.25);
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{ background:var(--black); color:var(--paper); font-family:'Inter', sans-serif; overflow-x:hidden; }
+  h1,h2,h3{ font-family:'Fraunces', serif; font-weight:600; letter-spacing:-0.01em; }
+  .eyebrow{ font-family:'Space Grotesk', sans-serif; text-transform:uppercase; letter-spacing:0.28em; font-size:0.72rem; color:var(--violet-bright); }
+  a{color:inherit; text-decoration:none;}
+  img{max-width:100%; display:block;}
+  button{font-family:'Space Grotesk', sans-serif; cursor:pointer; border:none;}
+  body::before{
+    content:""; position:fixed; inset:0;
+    background: radial-gradient(circle at 15% 20%, rgba(139,92,246,0.16), transparent 40%),
+                radial-gradient(circle at 85% 75%, rgba(139,92,246,0.12), transparent 45%),
+                linear-gradient(180deg, #08060d 0%, #0e0a18 100%);
+    z-index:-2;
+  }
+  nav{ position:sticky; top:0; z-index:50; display:flex; align-items:center; justify-content:space-between;
+       padding:1.1rem 5%; background:rgba(8,6,13,0.72); backdrop-filter:blur(10px); border-bottom:1px solid var(--gear-line); }
+  .brand{display:flex; align-items:center; gap:0.6rem; cursor:pointer;}
+  .brand .gear{width:34px; height:34px; animation: spin 12s linear infinite;}
+  nav ul{list-style:none; display:flex; gap:2rem; font-size:0.85rem; font-family:'Space Grotesk';}
+  nav ul a:hover{color:var(--violet-bright);}
+  @keyframes spin{ to{ transform: rotate(360deg);} }
+
+  section{padding: 5.5rem 5%; position:relative;}
+  .section-head{max-width:640px; margin-bottom:2.4rem;}
+  .section-head h2{font-size:clamp(1.9rem,4vw,2.7rem); margin-top:0.6rem;}
+  .section-head p{color:#b8aad4; margin-top:0.8rem; line-height:1.6;}
+
+  .btn{ display:inline-flex; align-items:center; gap:0.5rem; padding:0.9rem 1.7rem; border-radius:999px;
+        font-size:0.85rem; font-weight:600; letter-spacing:0.02em; transition: transform 0.25s ease; }
+  .btn-solid{background:linear-gradient(135deg, var(--violet-accent), var(--violet-mid)); color:#fff;}
+  .btn-solid:hover{transform:translateY(-2px);}
+  .btn-outline{border:1px solid var(--violet-bright); color:var(--violet-bright); background:transparent;}
+  .btn-outline:hover{background:rgba(139,92,246,0.12); transform:translateY(-2px);}
+
+  /* page header */
+  .page-header{ padding: 4rem 5% 1rem; }
+  .page-header h1{ font-size:clamp(2.2rem,5vw,3.4rem); }
+  .page-header p{ color:#b8aad4; margin-top:0.8rem; max-width:560px; }
+
+  /* badges on posters */
+  .badge{ position:absolute; top:0.7rem; left:0.7rem; padding:0.3rem 0.7rem; border-radius:999px;
+          font-family:'Space Grotesk'; font-size:0.68rem; font-weight:700; letter-spacing:0.03em; z-index:2; }
+  .badge.upcoming{ background:var(--violet-accent); color:#fff; }
+  .badge.recent{ background:rgba(8,6,13,0.7); color:var(--lilac); border:1px solid var(--gear-line); }
+
+  .events-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:1.4rem; margin-bottom:2rem; }
+  .event-card{ border-radius:18px; overflow:hidden; border:1px solid var(--gear-line); cursor:pointer;
+               position:relative; transition: transform 0.3s ease; }
+  .event-card:hover{ transform:translateY(-6px); }
+  .event-card img{ width:100%; aspect-ratio:4/3; object-fit:cover; }
+  .event-info{ padding:1rem 1.1rem; background:var(--ink); }
+  .event-info b{ font-family:'Space Grotesk'; font-size:0.95rem; }
+  .event-info small{ color:var(--violet-bright); font-size:0.75rem; }
+  .events-cta{ text-align:center; margin-top:1rem; }
+
+  /* tab switcher */
+  .tab-switch{ display:flex; gap:0.8rem; padding: 0 5%; margin-top:2rem; }
+  .tab-btn{ padding:0.7rem 1.5rem; border-radius:999px; border:1px solid var(--gear-line);
+            background:transparent; color:#b8aad4; font-size:0.85rem; font-weight:600; }
+  .tab-btn.active{ background:linear-gradient(135deg, var(--violet-accent), var(--violet-mid)); color:#fff; border-color:transparent; }
+
+  /* bulletins grid (in-page, tap opens a pop-up — no separate page) */
+  .bulletins-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(170px,1fr)); gap:1.3rem; }
+  .bulletin-card{ border-radius:16px; overflow:hidden; border:1px solid var(--gear-line); cursor:pointer;
+                  background:rgba(36,18,56,0.35); transition: transform 0.25s ease, border-color 0.25s ease; }
+  .bulletin-card:hover{ transform:translateY(-6px); border-color:var(--violet-bright); }
+  .bulletin-card img{ width:100%; aspect-ratio:3/4; object-fit:cover; }
+  .bulletin-info{ padding:0.85rem 0.9rem; text-align:center; }
+  .bulletin-info b{ font-family:'Space Grotesk'; font-size:0.85rem; display:block; }
+  .bulletin-info small{ color:var(--violet-bright); font-size:0.7rem; }
+  .modal-box ul{ color:#c6b9e6; line-height:1.9; font-size:0.9rem; padding-left:1.2rem; }
+
+  /* modal */
+  .modal-overlay{ position:fixed; inset:0; background:rgba(8,6,13,0.82); backdrop-filter:blur(4px);
+                  display:none; align-items:center; justify-content:center; z-index:200; padding:2rem; }
+  .modal-overlay.active{ display:flex; }
+  .modal-box{ background:linear-gradient(160deg, var(--violet-deep), var(--ink)); border:1px solid var(--gear-line);
+              border-radius:22px; max-width:560px; width:100%; padding:2.2rem; position:relative;
+              max-height:85vh; overflow-y:auto; }
+  .modal-box img{ border-radius:14px; margin-bottom:1rem; width:100%; object-fit:cover; max-height:260px; }
+  .modal-close{ position:absolute; top:1.1rem; right:1.1rem; width:34px; height:34px; border-radius:50%;
+                background:rgba(139,92,246,0.15); color:var(--violet-bright); display:flex; align-items:center;
+                justify-content:center; font-size:1.1rem; cursor:pointer; }
+  .modal-box h3{ color:var(--paper); font-size:1.3rem; }
+  .modal-box .meta{ color:var(--violet-bright); font-size:0.85rem; font-family:'Space Grotesk'; margin:0.3rem 0 1rem; }
+  .modal-box p{ color:#c6b9e6; line-height:1.7; font-size:0.92rem; }
+  .modal-box .group-label{ font-family:'Space Grotesk'; font-size:0.75rem; color:var(--violet-bright);
+                            text-transform:uppercase; letter-spacing:0.1em; margin:1.2rem 0 0.5rem; }
+
+  footer{ padding: 4rem 5% 2.4rem; border-top:1px solid var(--gear-line); background:var(--ink); }
+  .footer-box{
+    border:1px solid var(--gear-line); border-radius:20px; padding:2.4rem;
+    display:grid; grid-template-columns:1.2fr 1fr; gap:2rem; align-items:center;
+    margin-bottom:2.4rem;
+  }
+  .footer-box h3{ color:var(--violet-bright); font-size:1.3rem; }
+  .footer-box .contact-line{ margin-top:0.5rem; color:#c6b9e6; font-size:0.92rem; }
+  .social-icons{ display:flex; gap:1rem; justify-content:flex-end; }
+  .social-icons a{
+    width:46px; height:46px; border-radius:50%;
+    border:1px solid var(--gear-line);
+    display:flex; align-items:center; justify-content:center;
+    transition: transform 0.25s ease, background 0.25s ease, border-color 0.25s ease;
+  }
+  .social-icons a:hover{ transform:translateY(-3px); background:rgba(139,92,246,0.15); border-color:var(--violet-bright); }
+  .social-icons svg{ width:20px; height:20px; fill:var(--lilac); }
+  .foot-bottom{ text-align:center; color:#6f5f92; font-size:0.8rem; }
+  @media (max-width: 860px){ .footer-box{ grid-template-columns:1fr; } .social-icons{ justify-content:flex-start; } }
+
+  @media (max-width: 860px){ nav ul{ display:none; } }
+</style>
+</head>
+<body>
+
+<!-- ================================================================
+     NAV — logo only, same behaviour as the home page: click it for
+     "when we started & how it's going".
+================================================================= -->
+<nav>
+  <div class="brand" onclick="showClubStatus()" title="When we started & how it's going">
+    <svg class="gear" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M50 20 L55 8 L45 8 Z M50 80 L55 92 L45 92 Z M80 50 L92 55 L92 45 Z M20 50 L8 55 L8 45 Z M71 29 L82 20 L74 32 Z M29 71 L18 80 L26 68 Z M71 71 L82 80 L74 68 Z M29 29 L18 20 L26 32 Z" fill="#b083ff"/>
+      <circle cx="50" cy="50" r="26" stroke="#b083ff" stroke-width="6"/>
+      <circle cx="50" cy="50" r="9" fill="#b083ff"/>
+    </svg>
+  </div>
+  <ul>
+    <li><a href="index.html">Home</a></li>
+    <li><a href="about.html">About Us</a></li>
+    <li><a href="team.html">Team</a></li>
+    <li><a href="index.html#join">Join</a></li>
+    <li><a href="events.html">Events</a></li>
+    <li><a href="index.html#connect">Connect</a></li>
+  </ul>
+</nav>
+
+<div class="page-header">
+  <span class="eyebrow">Stay in the loop</span>
+  <h1>Events &amp; Bulletins</h1>
+  <p>Everything we've done, everything coming up, and every monthly bulletin — all in one place.</p>
+  <div class="tab-switch">
+    <button class="tab-btn active" id="tab-events-btn" onclick="switchTab('events')">Events</button>
+    <button class="tab-btn" id="tab-bulletins-btn" onclick="switchTab('bulletins')">Bulletins</button>
+  </div>
+</div>
+
+<!-- ================================================================
+     EVENTS TAB
+     👉 PIC + CONTENT: built by JavaScript — search for
+        "const events = [ ... ]" in the <script> below. Each event
+        has its own poster (img) AND its own group photo (groupImg),
+        shown together when that poster is clicked.
+================================================================= -->
+<section id="events-panel">
+  <div class="section-head">
+    <span class="eyebrow">Recent &amp; upcoming</span>
+    <h2>All Activities</h2>
+    <p>Tap any poster for the full story and the group photo from that day.</p>
+  </div>
+  <div class="events-grid" id="events-grid"></div>
+  <div class="events-cta">
+    <a href="#" class="btn btn-outline" id="view-all-btn" onclick="viewAllActivities(); return false;">View All Activities</a>
+  </div>
+</section>
+
+<!-- ================================================================
+     BULLETINS TAB (hidden until "Bulletins" is clicked above)
+     Stays on this same page — tapping any cover opens a pop-up with
+     that month's highlights, right here, no separate page involved.
+     👉 PIC + CONTENT: built by JavaScript — search for
+        "const bulletins = [ ... ]" in the <script> below.
+================================================================= -->
+<section id="bulletins-panel" style="display:none;">
+  <div class="section-head">
+    <span class="eyebrow">Month by month</span>
+    <h2>Club Bulletins</h2>
+    <p>Tap any month's cover to see that month's highlights.</p>
+  </div>
+  <div class="bulletins-grid" id="bulletins-grid"></div>
+</section>
+
+<!-- ================================================================
+     FOOTER — club name, email, phone, and social icons.
+     👉 CONTENT: fill in the real handles AND replace href="#" on each
+        icon with the real profile link (e.g. https://instagram.com/yourclub)
+================================================================= -->
+<footer>
+  <div class="footer-box">
+    <div>
+      <h3>Rotaract Club of Coimbatore</h3>
+      <!-- CONTENT: club email -->
+      <div class="contact-line">✉ hello@rotaractcoimbatore.org</div>
+      <!-- CONTENT: club phone number -->
+      <div class="contact-line">📞 +91 98765 43210</div>
+    </div>
+    <div class="social-icons">
+      <!-- CONTENT: put your real Instagram link in href -->
+      <a href="https://instagram.com/" target="_blank" rel="noopener" aria-label="Instagram">
+        <svg viewBox="0 0 24 24"><path d="M12 2.2c3.2 0 3.6 0 4.9.07 1.2.06 2 .25 2.5.42a5 5 0 011.8 1.16 5 5 0 011.16 1.8c.17.5.36 1.3.42 2.5.06 1.3.07 1.7.07 4.9s0 3.6-.07 4.9c-.06 1.2-.25 2-.42 2.5a5 5 0 01-1.16 1.8 5 5 0 01-1.8 1.16c-.5.17-1.3.36-2.5.42-1.3.06-1.7.07-4.9.07s-3.6 0-4.9-.07c-1.2-.06-2-.25-2.5-.42a5 5 0 01-1.8-1.16 5 5 0 01-1.16-1.8c-.17-.5-.36-1.3-.42-2.5C2.2 15.6 2.2 15.2 2.2 12s0-3.6.07-4.9c.06-1.2.25-2 .42-2.5a5 5 0 011.16-1.8 5 5 0 011.8-1.16c.5-.17 1.3-.36 2.5-.42C8.4 2.2 8.8 2.2 12 2.2zm0 3.05a6.75 6.75 0 100 13.5 6.75 6.75 0 000-13.5zm0 11.13a4.38 4.38 0 110-8.76 4.38 4.38 0 010 8.76zm7-11.4a1.58 1.58 0 11-3.15 0 1.58 1.58 0 013.15 0z"/></svg>
+      </a>
+      <!-- CONTENT: put your real LinkedIn link in href -->
+      <a href="https://linkedin.com/" target="_blank" rel="noopener" aria-label="LinkedIn">
+        <svg viewBox="0 0 24 24"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.03-1.85-3.03-1.86 0-2.15 1.45-2.15 2.94v5.66H9.35V9h3.41v1.56h.05c.47-.9 1.63-1.85 3.36-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.06 2.06 0 11.01-4.12 2.06 2.06 0 010 4.12zM7.12 20.45H3.56V9h3.56v11.45z"/></svg>
+      </a>
+      <!-- CONTENT: put your real Facebook link in href -->
+      <a href="https://facebook.com/" target="_blank" rel="noopener" aria-label="Facebook">
+        <svg viewBox="0 0 24 24"><path d="M13.5 21v-7.9h2.66l.4-3.1H13.5V8.02c0-.9.25-1.5 1.54-1.5h1.64V3.76A22 22 0 0014.7 3.6c-2.3 0-3.87 1.4-3.87 3.98v2.42H8.16v3.1h2.67V21h2.67z"/></svg>
+      </a>
+    </div>
+  </div>
+  <p class="foot-bottom">© 2026 Rotaract Club of Coimbatore. Service Above Self.</p>
+</footer>
+
+<!-- Event detail pop-up (poster + description + that event's own group photo) -->
+<div class="modal-overlay" id="event-modal">
+  <div class="modal-box" id="event-modal-content"></div>
+</div>
+
+<!-- Bulletin detail pop-up (that month's highlights) -->
+<div class="modal-overlay" id="bulletin-modal">
+  <div class="modal-box" id="bulletin-modal-content"></div>
+</div>
+
+<!-- Logo pop-up ("when we started & how it's going") -->
+<div class="modal-overlay" id="club-status-modal">
+  <div class="modal-box">
+    <div class="modal-close" onclick="document.getElementById('club-status-modal').classList.remove('active')">✕</div>
+    <h3>Our Story So Far</h3>
+    <div class="meta" id="club-status-meta"></div>
+    <p id="club-status-text"></p>
+  </div>
+</div>
+
+<script>
+  // ================================================================
+  // 👉 CONTENT: keep this the same as startYear in index.html/about.html
+  const startYear = 1975;
+  function showClubStatus(){
+    const yrs = new Date().getFullYear() - startYear;
+    document.getElementById('club-status-meta').textContent = 'Chartered in ' + startYear + ' · ' + yrs + ' years active';
+    document.getElementById('club-status-text').textContent =
+      'What began as a small group of volunteers has grown into an 85-member club that has completed 140+ projects across health, education, and the environment. We\'re currently running our ' + yrs + 'th year of active service, with new projects added every term.';
+    document.getElementById('club-status-modal').classList.add('active');
+  }
+  document.getElementById('club-status-modal').addEventListener('click', e=>{
+    if(e.target.id === 'club-status-modal') e.target.classList.remove('active');
+  });
+
+  // ================================================================
+  // 👉 EVENTS DATA — one { } block per event.
+  //    img      = PIC (event poster)
+  //    groupImg = PIC (group photo from that specific event)
+  //    status   = "upcoming" or "recent" (controls the little badge)
+  //    name, date, desc = CONTENT
+  // ================================================================
+  const events = [
+    {name:"District Youth Summit", date:"15 August 2026", status:"upcoming",
+     img:"https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=500&q=60",
+     groupImg:"https://images.unsplash.com/photo-1511578314322-379afb476865?w=800&q=60",
+     desc:"Delegates from every club in District 3202 gather for a day of workshops on leadership and project design. Registration closes 5th August."},
+    {name:"New Member Induction", date:"9 August 2026", status:"upcoming",
+     img:"https://images.unsplash.com/photo-1523580494863-6f3031224c94?w=500&q=60",
+     groupImg:"https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=800&q=60",
+     desc:"Our newest members are officially inducted and matched with mentors from the board."},
+    {name:"Blood Donation Camp", date:"July 2026", status:"recent",
+     img:"https://images.unsplash.com/photo-1615461066841-6116e61058f4?w=500&q=60",
+     groupImg:"https://images.unsplash.com/photo-1615461066083-9e0c5d0b4a9d?w=800&q=60",
+     desc:"212 units collected in a single day, in partnership with City Hospital's blood bank — our highest turnout yet."},
+    {name:"Tree Plantation Drive", date:"June 2026", status:"recent",
+     img:"https://images.unsplash.com/photo-1440342359743-84fcb8c21f21?w=500&q=60",
+     groupImg:"https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?w=800&q=60",
+     desc:"400 saplings planted along the riverside walk with the local municipal corporation and two partner schools."},
+    {name:"Career Guidance Workshop", date:"May 2026", status:"recent",
+     img:"https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=500&q=60",
+     groupImg:"https://images.unsplash.com/photo-1517048676732-d65bc937f952?w=800&q=60",
+     desc:"Alumni volunteers ran resume and interview sessions for 150 final-year students from under-resourced colleges."},
+    {name:"Old-Age Home Visit", date:"April 2026", status:"recent",
+     img:"https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=500&q=60",
+     groupImg:"https://images.unsplash.com/photo-1521791136064-7986c2920216?w=800&q=60",
+     desc:"An afternoon of games, music, and letter-writing with residents — now a standing monthly tradition."}
+  ];
+
+  // 👉 Extra archived events, only shown once "View All Activities" is tapped.
+  const moreEvents = [
+    {name:"Beach Clean-Up Drive", date:"March 2026", status:"recent",
+     img:"https://images.unsplash.com/photo-1618477388954-7852f32655ec?w=500&q=60",
+     groupImg:"https://images.unsplash.com/photo-1618477461853-cf6ed80faba5?w=800&q=60",
+     desc:"60 volunteers cleared two kilometres of coastline in partnership with a neighbouring Rotaract club."},
+    {name:"Winter Clothes Drive", date:"January 2026", status:"recent",
+     img:"https://images.unsplash.com/photo-1608155305408-ee52c0c73899?w=500&q=60",
+     groupImg:"https://images.unsplash.com/photo-1608155305283-0d1e5abb2ec2?w=800&q=60",
+     desc:"Over 500 warm clothing items collected and distributed to shelters ahead of the coldest week of the year."},
+    {name:"Annual General Meeting", date:"December 2025", status:"recent",
+     img:"https://images.unsplash.com/photo-1517457373958-b7bdd4587205?w=500&q=60",
+     groupImg:"https://images.unsplash.com/photo-1543269865-cbf427effbad?w=800&q=60",
+     desc:"The full club came together to review the year and vote in the incoming board for the next term."}
+  ];
+
+  const eventsGrid = document.getElementById('events-grid');
+  function renderEvents(list){
+    list.forEach((e)=>{
+      const card = document.createElement('div');
+      card.className = 'event-card';
+      card.onclick = ()=> showEventModal(e);
+      card.innerHTML = `
+        <span class="badge ${e.status}">${e.status === 'upcoming' ? 'Upcoming' : 'Recent'}</span>
+        <img src="${e.img}" alt="${e.name}">
+        <div class="event-info"><b>${e.name}</b><br><small>${e.date}</small></div>`;
+      eventsGrid.appendChild(card);
+    });
+  }
+  renderEvents(events);
+
+  function viewAllActivities(){
+    renderEvents(moreEvents);
+    document.getElementById('view-all-btn').style.display = 'none';
+  }
+
+  function showEventModal(e){
+    document.getElementById('event-modal-content').innerHTML = `
+      <div class="modal-close" onclick="closeEventModal()">✕</div>
+      <img src="${e.img}" alt="${e.name}">
+      <h3>${e.name}</h3>
+      <div class="meta">${e.date} · ${e.status === 'upcoming' ? 'Upcoming' : 'Recent'}</div>
+      <p>${e.desc}</p>
+      <div class="group-label">Photos from this event</div>
+      <img src="${e.groupImg}" alt="${e.name} group photo">`;
+    document.getElementById('event-modal').classList.add('active');
+  }
+  function closeEventModal(){ document.getElementById('event-modal').classList.remove('active'); }
+  document.getElementById('event-modal').addEventListener('click', e=>{
+    if(e.target.id === 'event-modal') closeEventModal();
+  });
+
+  // ================================================================
+  // 👉 BULLETINS DATA — one { } block per monthly bulletin.
+  //    img = PIC (cover), month/year = CONTENT, highlights = list of
+  //    short bullet points shown when that month is tapped. Stays on
+  //    this page — no separate bulletins page involved.
+  // ================================================================
+  const bulletins = [
+    {month:"July", year:"2026", img:"https://images.unsplash.com/photo-1586339949916-3e9457bef6d3?w=400&q=60",
+     highlights:["Blood donation camp collected 212 units — our highest yet", "3 new corporate partners signed on for the next quarter", "District Youth Summit registrations opened"]},
+    {month:"June", year:"2026", img:"https://images.unsplash.com/photo-1586953208448-b95a79798f07?w=400&q=60",
+     highlights:["400 saplings planted along the riverside walk", "Monthly board meeting moved to the new community hall", "Two members completed their District leadership training"]},
+    {month:"May", year:"2026", img:"https://images.unsplash.com/photo-1586339949916-3e9457bef6d3?w=400&q=60",
+     highlights:["Career guidance workshop reached 150 students", "Treasury report: on budget for the second straight quarter", "Planning began for the August Youth Summit"]},
+    {month:"April", year:"2026", img:"https://images.unsplash.com/photo-1586953208448-b95a79798f07?w=400&q=60",
+     highlights:["Old-age home visits became a standing monthly event", "Membership crossed 85 active members", "New committee formed for the beach clean-up drive"]},
+    {month:"March", year:"2026", img:"https://images.unsplash.com/photo-1586339949916-3e9457bef6d3?w=400&q=60",
+     highlights:["Beach clean-up drive cleared 2km of coastline", "Joint project announced with a neighbouring Rotaract club", "Elections scheduled for next term's board"]},
+    {month:"February", year:"2026", img:"https://images.unsplash.com/photo-1586953208448-b95a79798f07?w=400&q=60",
+     highlights:["Annual sponsorship renewed with two local businesses", "Winter clothes drive wrapped up with 500+ items distributed", "New member orientation kit redesigned"]}
+  ];
+
+  const bulletinsGrid = document.getElementById('bulletins-grid');
+  bulletins.forEach((b,i)=>{
+    const card = document.createElement('div');
+    card.className = 'bulletin-card';
+    card.onclick = ()=> showBulletin(i);
+    card.innerHTML = `<img src="${b.img}" alt="${b.month} ${b.year} bulletin cover">
+      <div class="bulletin-info"><b>${b.month}</b><small>${b.year}</small></div>`;
+    bulletinsGrid.appendChild(card);
+  });
+
+  function showBulletin(i){
+    const b = bulletins[i];
+    document.getElementById('bulletin-modal-content').innerHTML = `
+      <div class="modal-close" onclick="closeBulletinModal()">✕</div>
+      <h3>${b.month} ${b.year} Bulletin</h3>
+      <div class="meta">This month's highlights</div>
+      <ul>${b.highlights.map(h => `<li>${h}</li>`).join('')}</ul>`;
+    document.getElementById('bulletin-modal').classList.add('active');
+  }
+  function closeBulletinModal(){ document.getElementById('bulletin-modal').classList.remove('active'); }
+  document.getElementById('bulletin-modal').addEventListener('click', e=>{
+    if(e.target.id === 'bulletin-modal') closeBulletinModal();
+  });
+
+  // ================================================================
+  // TAB SWITCHING (Events <-> Bulletins) — both live on this one page
+  // ================================================================
+  function switchTab(tab){
+    const eventsPanel = document.getElementById('events-panel');
+    const bulletinsPanel = document.getElementById('bulletins-panel');
+    const eventsBtn = document.getElementById('tab-events-btn');
+    const bulletinsBtn = document.getElementById('tab-bulletins-btn');
+    if(tab === 'events'){
+      eventsPanel.style.display = ''; bulletinsPanel.style.display = 'none';
+      eventsBtn.classList.add('active'); bulletinsBtn.classList.remove('active');
+    } else {
+      eventsPanel.style.display = 'none'; bulletinsPanel.style.display = '';
+      eventsBtn.classList.remove('active'); bulletinsBtn.classList.add('active');
+    }
+  }
+</script>
+</body>
+</html>

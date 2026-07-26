@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About Us — Rotaract Club of Coimbatore</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --black: #08060d;
+    --ink: #0e0a18;
+    --violet-deep: #241238;
+    --violet-mid: #3d1f63;
+    --violet-accent: #8b5cf6;
+    --violet-bright: #b083ff;
+    --lilac: #d9c8ff;
+    --paper: #f3edff;
+    --gear-line: rgba(176,131,255,0.25);
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    background: var(--black);
+    color: var(--paper);
+    font-family: 'Inter', sans-serif;
+    overflow-x:hidden;
+  }
+  h1,h2,h3, .display{ font-family:'Fraunces', serif; font-weight:600; letter-spacing:-0.01em; }
+  .eyebrow{ font-family:'Space Grotesk', sans-serif; text-transform:uppercase; letter-spacing:0.28em; font-size:0.72rem; color:var(--violet-bright); }
+  a{color:inherit; text-decoration:none;}
+  img{max-width:100%; display:block;}
+  button{font-family:'Space Grotesk', sans-serif; cursor:pointer; border:none;}
+
+  body::before{
+    content:"";
+    position:fixed; inset:0;
+    background:
+      radial-gradient(circle at 15% 20%, rgba(139,92,246,0.16), transparent 40%),
+      radial-gradient(circle at 85% 75%, rgba(139,92,246,0.12), transparent 45%),
+      linear-gradient(180deg, #08060d 0%, #0e0a18 100%);
+    z-index:-2;
+  }
+
+  /* NAV */
+  nav{
+    position:sticky; top:0; z-index:50;
+    display:flex; align-items:center; justify-content:space-between;
+    padding: 1.1rem 5%;
+    background: rgba(8,6,13,0.72);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--gear-line);
+  }
+  .brand{display:flex; align-items:center; gap:0.6rem; font-family:'Space Grotesk'; font-weight:700; letter-spacing:0.02em;}
+  .brand .gear{width:34px; height:34px; animation: spin 12s linear infinite;}
+  nav ul{list-style:none; display:flex; gap:2rem; font-size:0.85rem; font-family:'Space Grotesk';}
+  nav ul a:hover{color:var(--violet-bright);}
+  @keyframes spin{ to{ transform: rotate(360deg);} }
+
+  section{padding: 6rem 5%; position:relative;}
+  .section-head{max-width:640px; margin-bottom:2.6rem;}
+  .section-head h2{font-size:clamp(1.9rem,4vw,2.8rem); margin-top:0.6rem; color:var(--paper);}
+  .section-head p{color:#b8aad4; margin-top:0.8rem; line-height:1.6;}
+
+  .btn{
+    display:inline-flex; align-items:center; gap:0.5rem;
+    padding: 0.9rem 1.7rem; border-radius:999px;
+    font-size:0.85rem; font-weight:600; letter-spacing:0.02em;
+    transition: transform 0.25s ease, background 0.25s ease;
+  }
+  .btn-solid{background: linear-gradient(135deg, var(--violet-accent), var(--violet-mid)); color:#fff;}
+  .btn-solid:hover{transform:translateY(-2px);}
+  .btn-outline{border:1px solid var(--violet-bright); color:var(--violet-bright); background:transparent;}
+  .btn-outline:hover{background:rgba(139,92,246,0.12); transform:translateY(-2px);}
+
+  /* ===== GROUP PHOTO BANNER (top of page) ===== */
+  .about-hero{ position:relative; height:70vh; min-height:420px; }
+  .about-hero img{ width:100%; height:100%; object-fit:cover; filter:grayscale(10%) contrast(1.05); }
+  .about-hero .overlay{
+    position:absolute; inset:0;
+    background: linear-gradient(180deg, rgba(8,6,13,0.25) 0%, rgba(8,6,13,0.55) 65%, var(--black) 100%);
+    display:flex; align-items:flex-end; padding:3rem 5%;
+  }
+  .about-hero .overlay h1{ font-size:clamp(2.2rem,5vw,3.6rem); }
+
+  /* ===== AWARDS / PRIZES — auto-scrolling row ===== */
+  .awards-track-wrap{ overflow:hidden; padding: 0.5rem 0; -webkit-mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent); mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent); }
+  .awards-track{ display:flex; gap:1.6rem; width:max-content; animation: scrollAwards 30s linear infinite; }
+  .awards-track:hover{ animation-play-state: paused; }
+  @keyframes scrollAwards{ 0%{ transform:translateX(0);} 100%{ transform:translateX(-50%);} }
+  .award-card{
+    flex:0 0 auto; width:190px; text-align:center; cursor:pointer;
+    border:1px solid var(--gear-line); border-radius:16px; padding:1.2rem 1rem;
+    background: rgba(36,18,56,0.35);
+    transition: transform 0.25s ease, border-color 0.25s ease;
+  }
+  .award-card:hover{ transform:translateY(-6px); border-color:var(--violet-bright); }
+  .award-card img{ width:78px; height:78px; object-fit:contain; margin:0 auto 0.9rem; }
+  .award-card b{ font-family:'Space Grotesk'; font-size:0.88rem; display:block; line-height:1.35; }
+  .award-card small{ color:var(--violet-bright); font-size:0.72rem; }
+
+  /* ===== MISSION / VISION / IMPACT / VALUES ===== */
+  .value-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:1.4rem; }
+  .value-card{
+    border:1px solid var(--gear-line); border-radius:20px; padding:2rem 1.5rem;
+    background: rgba(36,18,56,0.3);
+  }
+  .value-card .eyebrow{ display:block; margin-bottom:0.7rem; }
+  .value-card h3{ font-size:1.15rem; color:var(--paper); margin-bottom:0.6rem; }
+  .value-card p{ color:#c6b9e6; font-size:0.9rem; line-height:1.65; }
+  .join-cta{ text-align:center; margin-top:2.8rem; }
+
+  hr.divider{ border:none; border-top:1px solid var(--gear-line); margin: 0 5%; }
+
+  /* ===== LOCATION (extra breathing room + motto) ===== */
+  .location-section{ padding: 8rem 5%; text-align:center; }
+  .location-section .eyebrow{ display:block; margin-bottom:1rem; }
+  .location-section h2{ font-size:clamp(1.9rem,4vw,2.6rem); }
+  .location-section .addr{ margin-top:1.4rem; color:#c6b9e6; font-size:1rem; line-height:1.8; }
+  .motto{
+    margin-top:3rem;
+    font-family:'Fraunces', serif; font-style:italic;
+    font-size:clamp(1.3rem,3.2vw,1.9rem);
+    color:var(--violet-bright);
+    max-width:700px; margin-left:auto; margin-right:auto;
+  }
+  .map-embed{ margin-top:3rem; border-radius:18px; overflow:hidden; border:1px solid var(--gear-line); max-width:800px; margin-left:auto; margin-right:auto; }
+  .map-embed iframe{ width:100%; height:320px; border:0; filter:grayscale(35%) invert(92%) contrast(90%); }
+
+  /* ===== FOOTER ===== */
+  footer{ padding: 4rem 5% 2.4rem; border-top:1px solid var(--gear-line); background: var(--ink); }
+  .footer-box{
+    border:1px solid var(--gear-line); border-radius:20px; padding:2.4rem;
+    display:grid; grid-template-columns:1.2fr 1fr; gap:2rem; align-items:center;
+    margin-bottom:2.4rem;
+  }
+  .footer-box h3{ color:var(--violet-bright); font-size:1.3rem; }
+  .footer-box .contact-line{ margin-top:0.5rem; color:#c6b9e6; font-size:0.92rem; }
+  .social-icons{ display:flex; gap:1rem; justify-content:flex-end; }
+  .social-icons a{
+    width:46px; height:46px; border-radius:50%;
+    border:1px solid var(--gear-line);
+    display:flex; align-items:center; justify-content:center;
+    transition: transform 0.25s ease, background 0.25s ease, border-color 0.25s ease;
+  }
+  .social-icons a:hover{ transform:translateY(-3px); background:rgba(139,92,246,0.15); border-color:var(--violet-bright); }
+  .social-icons svg{ width:20px; height:20px; fill:var(--lilac); }
+  .foot-bottom{ text-align:center; color:#6f5f92; font-size:0.8rem; }
+
+  /* ===== MODAL ===== */
+  .modal-overlay{ position:fixed; inset:0; background:rgba(8,6,13,0.82); backdrop-filter:blur(4px); display:none; align-items:center; justify-content:center; z-index:200; padding:2rem; }
+  .modal-overlay.active{ display:flex; }
+  .modal-box{
+    background: linear-gradient(160deg, var(--violet-deep), var(--ink));
+    border:1px solid var(--gear-line); border-radius:22px;
+    max-width:480px; width:100%; padding:2.2rem; position:relative;
+  }
+  .modal-box img{ width:64px; height:64px; object-fit:contain; margin-bottom:1rem; }
+  .modal-close{ position:absolute; top:1.1rem; right:1.1rem; width:34px; height:34px; border-radius:50%; background:rgba(139,92,246,0.15); color:var(--violet-bright); display:flex; align-items:center; justify-content:center; font-size:1.1rem; cursor:pointer; }
+  .modal-box h3{ color:var(--paper); font-size:1.25rem; }
+  .modal-box .meta{ color:var(--violet-bright); font-size:0.82rem; font-family:'Space Grotesk'; margin:0.4rem 0 1rem; }
+  .modal-box p{ color:#c6b9e6; line-height:1.7; font-size:0.92rem; }
+
+  @media (max-width: 860px){
+    nav ul{ display:none; }
+    .value-grid{ grid-template-columns:1fr 1fr; }
+    .footer-box{ grid-template-columns:1fr; }
+    .social-icons{ justify-content:flex-start; }
+  }
+  @media (max-width: 560px){
+    .value-grid{ grid-template-columns:1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ================================================================
+     NAV — same as the home page. "Home" sends people back to
+     index.html. Edit links only if you rename pages/sections.
+================================================================= -->
+<!-- ================================================================
+     NAV — logo only (no text), same behaviour as the home page:
+     click it to see "when we started and how it's going".
+================================================================= -->
+<nav>
+  <div class="brand" onclick="showClubStatus()" title="When we started & how it's going" style="cursor:pointer;">
+    <svg class="gear" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M50 20 L55 8 L45 8 Z M50 80 L55 92 L45 92 Z M80 50 L92 55 L92 45 Z M20 50 L8 55 L8 45 Z M71 29 L82 20 L74 32 Z M29 71 L18 80 L26 68 Z M71 71 L82 80 L74 68 Z M29 29 L18 20 L26 32 Z" fill="#b083ff"/>
+      <circle cx="50" cy="50" r="26" stroke="#b083ff" stroke-width="6"/>
+      <circle cx="50" cy="50" r="9" fill="#b083ff"/>
+    </svg>
+  </div>
+  <ul>
+    <li><a href="index.html">Home</a></li>
+    <li><a href="about.html">About Us</a></li>
+    <li><a href="team.html">Team</a></li>
+    <li><a href="index.html#join">Join</a></li>
+    <li><a href="events.html">Events</a></li>
+    <li><a href="index.html#connect">Connect</a></li>
+  </ul>
+</nav>
+
+<!-- ================================================================
+     GROUP PHOTO BANNER (first thing on this page)
+     👉 PIC: replace src="..." with your club's real group photo
+     👉 CONTENT: heading text below it
+================================================================= -->
+<div class="about-hero">
+  <!-- PIC: main About Us banner photo -->
+  <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=1400&q=70" alt="Club group photo">
+  <div class="overlay">
+    <h1><!-- CONTENT: page heading -->About Us</h1>
+  </div>
+</div>
+
+<!-- ================================================================
+     AWARDS / PRIZES — auto-scrolling strip, in a straight line.
+     👉 PIC + CONTENT: built by JavaScript — search for
+        "const awards = [ ... ]" near the bottom of the page to add,
+        edit, or remove awards (photo, name, year, place, reason).
+     Tap any award to see when/where it was won and why.
+================================================================= -->
+<section id="awards">
+  <div class="section-head">
+    <span class="eyebrow">Recognition</span>
+    <h2>Our Prizes &amp; Awards</h2>
+    <p>Tap any award to see when we won it, where, and why.</p>
+  </div>
+  <div class="awards-track-wrap">
+    <div class="awards-track" id="awards-track"></div>
+  </div>
+</section>
+
+<!-- ================================================================
+     MISSION / VISION / IMPACT / CORE VALUES
+     👉 CONTENT: 4 short paragraphs below — one per card
+================================================================= -->
+<section id="values">
+  <div class="section-head">
+    <span class="eyebrow">What drives us</span>
+    <h2>Mission, Vision, Impact &amp; Values</h2>
+  </div>
+  <div class="value-grid">
+    <div class="value-card">
+      <span class="eyebrow">01</span>
+      <h3>Our Mission</h3>
+      <!-- CONTENT: mission statement -->
+      <p>To develop young leaders through hands-on community service, professional growth, and international fellowship.</p>
+    </div>
+    <div class="value-card">
+      <span class="eyebrow">02</span>
+      <h3>Our Vision</h3>
+      <!-- CONTENT: vision statement -->
+      <p>A generation of young adults who see service not as an occasional act, but as a lifelong habit.</p>
+    </div>
+    <div class="value-card">
+      <span class="eyebrow">03</span>
+      <h3>Our Impact</h3>
+      <!-- CONTENT: impact statement -->
+      <p>Thousands of hours served, hundreds of families supported, and a growing network of members carrying it forward.</p>
+    </div>
+    <div class="value-card">
+      <span class="eyebrow">04</span>
+      <h3>Core Values</h3>
+      <!-- CONTENT: core values statement -->
+      <p>Fellowship, integrity, diversity, service, and leadership — in that order of how we practice them daily.</p>
+    </div>
+  </div>
+  <div class="join-cta">
+    <a href="index.html#join" class="btn btn-solid">Join Us</a>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- ================================================================
+     LOCATION (extra spacing + motto + optional map)
+     👉 CONTENT: address lines and the italic motto line
+     👉 OPTIONAL: replace the Google Maps embed link below with your
+        real location — go to Google Maps, search your address,
+        click Share → Embed a map, and paste the src link here.
+================================================================= -->
+<section class="location-section" id="location">
+  <span class="eyebrow">Find us</span>
+  <h2>Where We Meet</h2>
+  <div class="addr">
+    <!-- CONTENT: meeting address -->
+    Community Hall, Race Course Road, Coimbatore, Tamil Nadu<br>
+    Thursdays, 6:30 PM
+  </div>
+  <!-- CONTENT: motto line -->
+  <p class="motto">"Wherever there's a need nearby, that's where you'll find us."</p>
+  <div class="map-embed">
+    <!-- PIC/MAP: replace with your own Google Maps embed src -->
+    <iframe src="https://maps.google.com/maps?q=Coimbatore&t=&z=13&ie=UTF8&iwloc=&output=embed" loading="lazy"></iframe>
+  </div>
+</section>
+
+<!-- ================================================================
+     FOOTER — club name, email, phone, and social icons.
+     👉 CONTENT: fill in the real handles AND replace href="#" on each
+        icon with the real profile link (e.g. https://instagram.com/yourclub)
+================================================================= -->
+<footer>
+  <div class="footer-box">
+    <div>
+      <h3>Rotaract Club of Coimbatore</h3>
+      <!-- CONTENT: club email -->
+      <div class="contact-line">✉ hello@rotaractcoimbatore.org</div>
+      <!-- CONTENT: club phone number -->
+      <div class="contact-line">📞 +91 98765 43210</div>
+    </div>
+    <div class="social-icons">
+      <!-- CONTENT: put your real Instagram link in href -->
+      <a href="https://instagram.com/" target="_blank" rel="noopener" aria-label="Instagram">
+        <svg viewBox="0 0 24 24"><path d="M12 2.2c3.2 0 3.6 0 4.9.07 1.2.06 2 .25 2.5.42a5 5 0 011.8 1.16 5 5 0 011.16 1.8c.17.5.36 1.3.42 2.5.06 1.3.07 1.7.07 4.9s0 3.6-.07 4.9c-.06 1.2-.25 2-.42 2.5a5 5 0 01-1.16 1.8 5 5 0 01-1.8 1.16c-.5.17-1.3.36-2.5.42-1.3.06-1.7.07-4.9.07s-3.6 0-4.9-.07c-1.2-.06-2-.25-2.5-.42a5 5 0 01-1.8-1.16 5 5 0 01-1.16-1.8c-.17-.5-.36-1.3-.42-2.5C2.2 15.6 2.2 15.2 2.2 12s0-3.6.07-4.9c.06-1.2.25-2 .42-2.5a5 5 0 011.16-1.8 5 5 0 011.8-1.16c.5-.17 1.3-.36 2.5-.42C8.4 2.2 8.8 2.2 12 2.2zm0 3.05a6.75 6.75 0 100 13.5 6.75 6.75 0 000-13.5zm0 11.13a4.38 4.38 0 110-8.76 4.38 4.38 0 010 8.76zm7-11.4a1.58 1.58 0 11-3.15 0 1.58 1.58 0 013.15 0z"/></svg>
+      </a>
+      <!-- CONTENT: put your real LinkedIn link in href -->
+      <a href="https://linkedin.com/" target="_blank" rel="noopener" aria-label="LinkedIn">
+        <svg viewBox="0 0 24 24"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.03-1.85-3.03-1.86 0-2.15 1.45-2.15 2.94v5.66H9.35V9h3.41v1.56h.05c.47-.9 1.63-1.85 3.36-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.06 2.06 0 11.01-4.12 2.06 2.06 0 010 4.12zM7.12 20.45H3.56V9h3.56v11.45z"/></svg>
+      </a>
+      <!-- CONTENT: put your real Facebook link in href -->
+      <a href="https://facebook.com/" target="_blank" rel="noopener" aria-label="Facebook">
+        <svg viewBox="0 0 24 24"><path d="M13.5 21v-7.9h2.66l.4-3.1H13.5V8.02c0-.9.25-1.5 1.54-1.5h1.64V3.76A22 22 0 0014.7 3.6c-2.3 0-3.87 1.4-3.87 3.98v2.42H8.16v3.1h2.67V21h2.67z"/></svg>
+      </a>
+    </div>
+  </div>
+  <p class="foot-bottom">© 2026 Rotaract Club of Coimbatore. Service Above Self.</p>
+</footer>
+
+<!-- Award detail pop-up -->
+<div class="modal-overlay" id="award-modal">
+  <div class="modal-box" id="award-modal-content"></div>
+</div>
+
+<!-- ================================================================
+     LOGO POP-UP — "when we started & how it's going"
+     👉 CONTENT: edit the founding year / summary inside
+        showClubStatus() in the <script> below, not here.
+================================================================= -->
+<div class="modal-overlay" id="club-status-modal">
+  <div class="modal-box">
+    <div class="modal-close" onclick="document.getElementById('club-status-modal').classList.remove('active')">✕</div>
+    <h3>Our Story So Far</h3>
+    <div class="meta" id="club-status-meta"></div>
+    <p id="club-status-text"></p>
+  </div>
+</div>
+
+<script>
+  // ================================================================
+  // 👉 AWARDS / PRIZES DATA — one { } block per award.
+  //    img   = PIC (award/trophy image)
+  //    name  = award name shown in the scrolling strip
+  //    year, place, reason = CONTENT shown when it's clicked
+  // ================================================================
+  const awards = [
+    {name:"Best New Club", img:"https://images.unsplash.com/photo-1567427017947-545c5f8d16ad?w=200&q=60", year:"2022", place:"District 3202 Conference, Chennai", reason:"Awarded for the strongest first-year project count among all newly chartered clubs in the district."},
+    {name:"Outstanding Community Service", img:"https://images.unsplash.com/photo-1607344645866-009c320b63e0?w=200&q=60", year:"2023", place:"Rotaract District Awards, Coimbatore", reason:"Recognised for the tree plantation and river clean-up drives completed over the year."},
+    {name:"Best Membership Growth", img:"https://images.unsplash.com/photo-1591115765373-5207764f72e7?w=200&q=60", year:"2024", place:"District 3202 Conference, Madurai", reason:"Given for doubling active membership through a redesigned induction program."},
+    {name:"Excellence in Fellowship", img:"https://images.unsplash.com/photo-1567427017947-545c5f8d16ad?w=200&q=60", year:"2024", place:"Zonal Rotaract Meet, Salem", reason:"Awarded for consistent inter-club collaboration and joint projects across the zone."},
+    {name:"Top Blood Donation Drive", img:"https://images.unsplash.com/photo-1607344645866-009c320b63e0?w=200&q=60", year:"2025", place:"District 3202 Health Summit, Coimbatore", reason:"Recognised for collecting the highest number of units in a single-day camp district-wide."},
+    {name:"Presidential Citation", img:"https://images.unsplash.com/photo-1591115765373-5207764f72e7?w=200&q=60", year:"2025", place:"Rotary International District Assembly", reason:"Awarded for meeting all seven citation benchmarks for club excellence in the same year."}
+  ];
+
+  const track = document.getElementById('awards-track');
+  // Render the list twice back-to-back so the scroll loop looks seamless
+  [...awards, ...awards].forEach((a, i)=>{
+    const card = document.createElement('div');
+    card.className = 'award-card';
+    card.onclick = ()=> showAward(i % awards.length);
+    card.innerHTML = `<img src="${a.img}" alt="${a.name}"><b>${a.name}</b><small>${a.year}</small>`;
+    track.appendChild(card);
+  });
+
+  function showAward(i){
+    const a = awards[i];
+    document.getElementById('award-modal-content').innerHTML = `
+      <div class="modal-close" onclick="closeAwardModal()">✕</div>
+      <img src="${a.img}" alt="${a.name}">
+      <h3>${a.name}</h3>
+      <div class="meta">${a.year} · ${a.place}</div>
+      <p>${a.reason}</p>`;
+    document.getElementById('award-modal').classList.add('active');
+  }
+  function closeAwardModal(){ document.getElementById('award-modal').classList.remove('active'); }
+  document.getElementById('award-modal').addEventListener('click', e=>{
+    if(e.target.id === 'award-modal') closeAwardModal();
+  });
+
+  // 👉 CONTENT: club's real founding/charter year — keep this the
+  //    same as startYear in index.html so both pages agree
+  const startYear = 1975;
+  function showClubStatus(){
+    const yrs = new Date().getFullYear() - startYear;
+    document.getElementById('club-status-meta').textContent = 'Chartered in ' + startYear + ' · ' + yrs + ' years active';
+    // 👉 CONTENT: edit this "how it's going" summary freely
+    document.getElementById('club-status-text').textContent =
+      'What began as a small group of volunteers has grown into an 85-member club that has completed 140+ projects across health, education, and the environment. We\'re currently running our ' + yrs + 'th year of active service, with new projects added every term.';
+    document.getElementById('club-status-modal').classList.add('active');
+  }
+  document.getElementById('club-status-modal').addEventListener('click', e=>{
+    if(e.target.id === 'club-status-modal') e.target.classList.remove('active');
+  });
+</script>
+</body>
+</html>
